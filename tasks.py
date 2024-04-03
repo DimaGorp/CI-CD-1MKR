@@ -11,16 +11,13 @@ def split_text(text: str) -> Tuple[List[str], List[str]]:
     words = re.findall(r'\b\w+\b', text)
     
     # Розділяємо текст на речення за всіма можливими символами, які можуть завершувати речення
-    sentences = re.split(r'[.!?]+', text)
+    sentences = re.split(r'(?<=[.!?])\s*', text)
     sentences = [sentence.strip() for sentence in sentences if sentence.strip()]
 
-    # Розділяємо кожне речення на слова, враховуючи розділові знаки
+    # Розділяємо кожне речення на слова
     final_sentences = []
-    separators = ",:; "
     for sentence in sentences:
-        for separator in separators:
-            sentence = sentence.replace(separator, "")
-        final_sentences.extend(sentence.split())
+        final_sentences.append(sentence)
     
     return words, final_sentences
 
